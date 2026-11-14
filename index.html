@@ -140,7 +140,14 @@ function onPos(p){
   status(); drawDot();
   if(follow) centerOn(pos.x+off.x,pos.y+off.y);
 }
-function onErr(e){msg.textContent=e.code===1?'Location permission denied – enable it for this site in your browser settings.':'GPS error: '+e.message;}
+async function onErr(e){
+  let perm='n/a';
+  try{if(navigator.permissions){perm=(await navigator.permissions.query({name:'geolocation'})).state;}}catch(_){}
+  const ua=navigator.userAgent;
+  const br=/CriOS/.test(ua)?'Chrome':/FxiOS/.test(ua)?'Firefox':/EdgiOS/.test(ua)?'Edge':/Safari/.test(ua)&&/Version\//.test(ua)?'Safari':'in-app browser';
+  const sa=window.navigator.standalone?' (home-screen app)':'';
+  msg.textContent=`${e.code===1?'Location denied':'GPS error'} · code ${e.code} · ${br}${sa} · secure:${window.isSecureContext} · permission:${perm} · ${e.message||''}`;
+}
 document.getElementById('go').onclick=()=>{
   document.getElementById('start').style.display='none';
   if(!navigator.geolocation){msg.textContent='This browser has no GPS access.';return;}
