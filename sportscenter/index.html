@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>This Is SportsCenter Spots</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,800;1,800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* VOICE: fun, broadcast-confident, quick to scan
+   IDEA: a SportsCenter rundown — each spot is a lower-third chyron
+   PICTURE: big red "full reel" chyron hero with the 97-spot playlist
+   COLOUR and TYPE: ESPN red, near-black, white; Barlow Condensed italic heads
+   LAYOUT: red band hero, search, chyron grid, then "hunt these down" list */
+:root{color-scheme:light dark;--bg:light-dark(#f4f4f2,#0d0d0f);--card:light-dark(#fff,#18181b);--ink:light-dark(#111,#f2f2f2);--mute:light-dark(#5b5b60,#a2a2a8);--red:#d00b1b;--red2:#a30814;--line:light-dark(#e2e2e0,#2a2a2e)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 Barlow,system-ui,sans-serif;overflow-x:clip}
+a{color:inherit}
+.band{padding:clamp(24px,4vw,56px) max(5vw,16px)}
+.wrap{max-width:1240px;margin:0 auto}
+h1,h2,.ttl{font-family:"Barlow Condensed",Impact,sans-serif;font-style:italic;font-weight:800;text-transform:none;line-height:1.05;margin:0}
+.hero{background:var(--red);color:#fff;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-8%;top:-40%;width:55%;height:180%;background:var(--red2);transform:skewX(-18deg);opacity:.55}
+.hero .wrap{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(20px,4vw,48px);align-items:center}
+h1{font-size:clamp(40px,6.5vw,72px);text-wrap:balance}
+.hero p{font-size:17px;max-width:46ch;margin:14px 0 0;opacity:.92}
+.reel{display:block;text-decoration:none;background:#0d0d0f;color:#fff;border-radius:6px;overflow:hidden;box-shadow:0 18px 40px rgba(0,0,0,.35);transition:transform .2s}
+.reel:hover,.reel:focus-visible{transform:translateY(-3px)}
+.reel .scr{aspect-ratio:16/8;display:grid;place-items:center;background:radial-gradient(circle at 50% 45%,#2b2b31,#0d0d0f 70%)}
+.play{width:84px;height:84px;border-radius:50%;background:var(--red);display:grid;place-items:center;box-shadow:0 0 0 10px rgba(208,11,27,.25)}
+.play svg{width:34px;height:34px;margin-left:5px}
+.chy{display:flex;align-items:stretch}
+.chy b{background:var(--red);padding:10px 14px;font:800 italic 22px "Barlow Condensed",sans-serif;white-space:nowrap}
+.chy span{padding:10px 14px;background:#fff;color:#111;flex:1;font-weight:600;font-size:15px;display:flex;align-items:center}
+.extras{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.pill{display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border:2px solid rgba(255,255,255,.8);border-radius:999px;text-decoration:none;font-weight:600;font-size:15px}
+.pill:hover,.pill:focus-visible{background:#fff;color:var(--red)}
+.bar{display:flex;flex-wrap:wrap;gap:14px;align-items:end;justify-content:space-between;margin-bottom:18px}
+h2{font-size:clamp(30px,4vw,40px)}
+.bar small{color:var(--mute);font-size:14px;display:block;margin-top:4px}
+input{font:inherit;font-size:16px;height:44px;padding:0 14px;border:2px solid var(--line);border-radius:4px;background:var(--card);color:var(--ink);width:min(320px,100%)}
+input:focus{outline:none;border-color:var(--red)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,290px),1fr));gap:14px}
+.spot{display:flex;flex-direction:column;text-decoration:none;background:var(--card);border-radius:4px;overflow:hidden;box-shadow:0 1px 0 var(--line),0 6px 18px rgba(0,0,0,.06);transition:transform .15s}
+.spot:hover,.spot:focus-visible{transform:translateY(-2px)}
+.spot .top{display:flex;align-items:stretch;min-height:48px}
+.spot .n{background:var(--red);color:#fff;font:800 italic 22px "Barlow Condensed",sans-serif;padding:0 12px;display:grid;place-items:center;min-width:52px}
+.spot .ttl{font-size:23px;padding:10px 14px 0;align-self:center}
+.spot .who{padding:6px 14px 14px;color:var(--mute);font-size:15px;flex:1}
+.spot .go{border-top:1px solid var(--line);padding:9px 14px;font-weight:600;font-size:14px;color:var(--red);display:flex;justify-content:space-between}
+.empty{color:var(--mute);padding:20px 0;display:none}
+.hunt .grid .n{background:#2a2a2e}
+.hunt .go{color:var(--mute)}
+footer{color:var(--mute);font-size:14px;border-top:1px solid var(--line)}
+@media(max-width:760px){.hero .wrap{grid-template-columns:minmax(0,1fr)}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="band hero">
+  <div class="wrap">
+    <div>
+      <h1>This Is SportsCenter: the commercials</h1>
+      <p>Thirty years of Bristol office comedy — athletes, anchors and mascots. Start with the full reel, or jump to a favorite below.</p>
+      <div class="extras">
+        <a class="pill" href="https://www.espn.com/watch/series/46b753a2-714f-417e-8705-f3856c936b86">ESPN's official series</a>
+        <a class="pill" href="https://www.espn.com/video/clip/_/id/9528887">SVP's Top 5</a>
+        <a class="pill" href="https://www.espn.com/video/clip/_/id/27478760">Steiner on making "Y2K"</a>
+      </div>
+    </div>
+    <a class="reel" href="https://www.youtube.com/playlist?list=PLDF76BF248A5FC8BF">
+      <div class="scr"><div class="play"><svg viewBox="0 0 24 24" fill="#fff"><path d="M6 4l14 8-14 8z"/></svg></div></div>
+      <div class="chy"><b>97 SPOTS</b><span>Full compilation playlist on YouTube</span></div>
+    </a>
+  </div>
+</header>
+
+<main>
+  <section class="band">
+    <div class="wrap">
+      <div class="bar">
+        <div><h2>Direct links</h2><small>Each opens the spot on YouTube.</small></div>
+        <input id="q" type="search" placeholder="Search athlete, anchor or title" aria-label="Search spots">
+      </div>
+      <div class="grid" id="spots"></div>
+      <p class="empty" id="none">No direct link matches — check the list below.</p>
+    </div>
+  </section>
+
+  <section class="band hunt">
+    <div class="wrap">
+      <div class="bar"><div><h2>Classics to hunt down</h2><small>No verified single link — these open a YouTube search.</small></div></div>
+      <div class="grid" id="hunt"></div>
+    </div>
+  </section>
+</main>
+
+<footer class="band"><div class="wrap">Links gathered from ESPN, Awful Announcing and Maxim. Videos are hosted by YouTube and ESPN; some may be removed or region-locked over time.</div></footer>
+
+<script>
+{
+const spots=[
+["John Clayton","“Hey Ma, I finished my segment”","USHZZ5bwASU"],
+["Touchdown Celebrations","Chad Johnson with Stuart Scott","b5roG8L3edE"],
+["The Closer","Stuart Scott","7JWjvtyIZvU"],
+["Swimsuits","Stuart Scott","kZaoJeDf04o"],
+["Rookie Camp 1","Stuart Scott","qR1E_I-e9ig"],
+["Rookie Camp 2","Stuart Scott","r9sY3AAXueI"],
+["Old Timer's Day","Stuart Scott","GDvCC3Yv00I"],
+["Rookie Hazing","Stuart Scott","Rb3wwqaRWdQ"],
+["Richard Simmons","Richard Simmons with Stuart Scott","XZVazghMWPU"],
+["Birds","Mascots with Stuart Scott","SSTpMQAGPv0"],
+["Who Touched My Razor?","Stuart Scott","M06kTVwXUs4"],
+["Anchor Cam","Stuart Scott","9KzwbrAd928"],
+["Big Hands","Rajon Rondo","gpOlZ9Z6q30"],
+["The Chair","LeBron James","iSsu-Tgcuzw"],
+["Slump Buster","Jimmy Rollins & the Phillie Phanatic","xiTvoK3L-go"],
+["Heavy Bag","Floyd Mayweather","kw9XqiBXKgM"],
+["Georges St-Pierre","Georges St-Pierre","3SFygdPVFHo"]
+];
+const hunt=[
+["Y2K","Mark McGwire & Charley Steiner — “Follow me to freedom!”"],
+["Spy","Alex Ovechkin & Steve Levy"],
+["Rivalry Headwear","David Ortiz & Jorge Posada"],
+["Media Training","Kobe Bryant & Keyshawn Johnson"],
+["Mailroom","LaDainian Tomlinson & Steve Levy"],
+["Outgoing Message","Tim Lincecum & Karl Ravech"],
+["Up Late","Stone Cold Steve Austin & Dan Patrick"],
+["Going Up?","NJ Devil & Jay Harris"],
+["Melrose Place Trade","Andrew Shue & Charley Steiner"],
+["Kerri Strug","Kerri Strug carried around the office"],
+["Ice Cream","Matt Harvey"],
+["Handshakes","Albert Pujols"]
+];
+const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const card=(n,t,w,href,go)=>`<a class="spot" href="${href}" data-k="${esc((t+' '+w).toLowerCase())}"><div class="top"><span class="n">${n}</span><span class="ttl">${esc(t)}</span></div><div class="who">${esc(w)}</div><div class="go"><span>${go}</span><span>→</span></div></a>`;
+const S=document.getElementById('spots');
+S.innerHTML=spots.map((s,i)=>card(String(i+1).padStart(2,'0'),s[0],s[1],'https://www.youtube.com/watch?v='+s[2],'Watch on YouTube')).join('');
+document.getElementById('hunt').innerHTML=hunt.map((h,i)=>card('?',h[0],h[1],'https://www.youtube.com/results?search_query='+encodeURIComponent('"This is SportsCenter" '+h[0]+' '+h[1].split(/[—&]/)[0]),'Search YouTube')).join('');
+const q=document.getElementById('q'),none=document.getElementById('none');
+q.addEventListener('input',()=>{const v=q.value.trim().toLowerCase();let c=0;S.querySelectorAll('.spot').forEach(a=>{const m=!v||a.dataset.k.includes(v);a.style.display=m?'':'none';if(m)c++});none.style.display=c?'none':'block'});
+}
+</script>
+</body>
+</html>
