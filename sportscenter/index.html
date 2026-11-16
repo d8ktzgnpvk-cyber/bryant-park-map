@@ -50,8 +50,6 @@ input:focus{outline:none;border-color:var(--red)}
 .spot .who{padding:6px 14px 14px;color:var(--mute);font-size:15px;flex:1}
 .spot .go{border-top:1px solid var(--line);padding:9px 14px;font-weight:600;font-size:14px;color:var(--red);display:flex;justify-content:space-between}
 .empty{color:var(--mute);padding:20px 0;display:none}
-.hunt .grid .n{background:#2a2a2e}
-.hunt .go{color:var(--mute)}
 footer{color:var(--mute);font-size:14px;border-top:1px solid var(--line)}
 @media(max-width:760px){.hero .wrap{grid-template-columns:minmax(0,1fr)}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
@@ -84,16 +82,10 @@ footer{color:var(--mute);font-size:14px;border-top:1px solid var(--line)}
         <input id="q" type="search" placeholder="Search athlete, anchor or title" aria-label="Search spots">
       </div>
       <div class="grid" id="spots"></div>
-      <p class="empty" id="none">No direct link matches — check the list below.</p>
+      <p class="empty" id="none">No matches.</p>
     </div>
   </section>
 
-  <section class="band hunt">
-    <div class="wrap">
-      <div class="bar"><div><h2>Classics to hunt down</h2><small>No verified single link — these open a YouTube search.</small></div></div>
-      <div class="grid" id="hunt"></div>
-    </div>
-  </section>
 </main>
 
 <footer class="band"><div class="wrap">Links gathered from ESPN, Awful Announcing and Maxim. Videos are hosted by YouTube and ESPN; some may be removed or region-locked over time.</div></footer>
@@ -119,30 +111,10 @@ const spots=[
 ["Best of the '90s","Fan compilation",Y+"7l16EPmvOz0","YouTube"],
 ["Vintage Commercials Tape","27-minute VHS rip of '90s spots",Y+"HqaubfDwifU","YouTube"]
 ];
-const hunt=[
-["Y2K","Mark McGwire & Charley Steiner — “Follow me to freedom!”"],
-["Touchdown Celebrations","Chad Johnson & Stuart Scott"],
-["The Chair","LeBron James"],
-["Slump Buster","Jimmy Rollins & the Phillie Phanatic"],
-["Big Hands","Rajon Rondo"],
-["Birds","Stuart Scott & mascots"],
-["Spy","Alex Ovechkin & Steve Levy"],
-["Rivalry Headwear","David Ortiz & Jorge Posada"],
-["Media Training","Kobe Bryant & Keyshawn Johnson"],
-["Mailroom","LaDainian Tomlinson & Steve Levy"],
-["Outgoing Message","Tim Lincecum & Karl Ravech"],
-["Up Late","Stone Cold Steve Austin & Dan Patrick"],
-["Going Up?","NJ Devil & Jay Harris"],
-["Melrose Place Trade","Andrew Shue & Charley Steiner"],
-["Kerri Strug","Kerri Strug carried around the office"],
-["Ice Cream","Matt Harvey"],
-["Handshakes","Albert Pujols"]
-];
 const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const card=(n,t,w,href,go)=>`<a class="spot" href="${href}" data-k="${esc((t+' '+w).toLowerCase())}"><div class="top"><span class="n">${n}</span><span class="ttl">${esc(t)}</span></div><div class="who">${esc(w)}</div><div class="go"><span>${go}</span><span>→</span></div></a>`;
 const S=document.getElementById('spots');
 S.innerHTML=spots.map((s,i)=>card(String(i+1).padStart(2,'0'),s[0],s[1],s[2],'Watch · '+s[3])).join('');
-document.getElementById('hunt').innerHTML=hunt.map((h,i)=>card('?',h[0],h[1],'https://www.youtube.com/results?search_query='+encodeURIComponent('"This is SportsCenter" '+h[0]+' '+h[1].split(/[—&]/)[0]),'Search YouTube')).join('');
 const q=document.getElementById('q'),none=document.getElementById('none');
 q.addEventListener('input',()=>{const v=q.value.trim().toLowerCase();let c=0;S.querySelectorAll('.spot').forEach(a=>{const m=!v||a.dataset.k.includes(v);a.style.display=m?'':'none';if(m)c++});none.style.display=c?'none':'block'});
 }
