@@ -69,9 +69,9 @@ footer{color:var(--mute);font-size:14px;border-top:1px solid var(--line)}
         <a class="pill" href="https://www.espn.com/video/clip/_/id/27478760">Steiner on making "Y2K"</a>
       </div>
     </div>
-    <a class="reel" href="https://www.youtube.com/playlist?list=PLDF76BF248A5FC8BF">
+    <a class="reel" href="https://www.youtube.com/watch?v=PIM5WnI5jKI">
       <div class="scr"><div class="play"><svg viewBox="0 0 24 24" fill="#fff"><path d="M6 4l14 8-14 8z"/></svg></div></div>
-      <div class="chy"><b>97 SPOTS</b><span>Full compilation playlist on YouTube</span></div>
+      <div class="chy"><b>START HERE</b><span>The history of the campaign, with highlights</span></div>
     </a>
   </div>
 </header>
@@ -80,7 +80,7 @@ footer{color:var(--mute);font-size:14px;border-top:1px solid var(--line)}
   <section class="band">
     <div class="wrap">
       <div class="bar">
-        <div><h2>Direct links</h2><small>Each opens the spot on YouTube.</small></div>
+        <div><h2>Direct links</h2><small>Mostly ESPN's own uploads and compilations.</small></div>
         <input id="q" type="search" placeholder="Search athlete, anchor or title" aria-label="Search spots">
       </div>
       <div class="grid" id="spots"></div>
@@ -100,27 +100,32 @@ footer{color:var(--mute);font-size:14px;border-top:1px solid var(--line)}
 
 <script>
 {
+const Y='https://www.youtube.com/watch?v=',SH='https://www.youtube.com/shorts/',E='https://www.espn.com/video/clip/_/id/';
 const spots=[
-["John Clayton","“Hey Ma, I finished my segment”","USHZZ5bwASU"],
-["Touchdown Celebrations","Chad Johnson with Stuart Scott","b5roG8L3edE"],
-["The Closer","Stuart Scott","7JWjvtyIZvU"],
-["Swimsuits","Stuart Scott","kZaoJeDf04o"],
-["Rookie Camp 1","Stuart Scott","qR1E_I-e9ig"],
-["Rookie Camp 2","Stuart Scott","r9sY3AAXueI"],
-["Old Timer's Day","Stuart Scott","GDvCC3Yv00I"],
-["Rookie Hazing","Stuart Scott","Rb3wwqaRWdQ"],
-["Richard Simmons","Richard Simmons with Stuart Scott","XZVazghMWPU"],
-["Birds","Mascots with Stuart Scott","SSTpMQAGPv0"],
-["Who Touched My Razor?","Stuart Scott","M06kTVwXUs4"],
-["Anchor Cam","Stuart Scott","9KzwbrAd928"],
-["Big Hands","Rajon Rondo","gpOlZ9Z6q30"],
-["The Chair","LeBron James","iSsu-Tgcuzw"],
-["Slump Buster","Jimmy Rollins & the Phillie Phanatic","xiTvoK3L-go"],
-["Heavy Bag","Floyd Mayweather","kw9XqiBXKgM"],
-["Georges St-Pierre","Georges St-Pierre","3SFygdPVFHo"]
+["The History of This Is SportsCenter","Charley Steiner & Scott Van Pelt, with highlights",Y+"PIM5WnI5jKI","YouTube · ESPN"],
+["Best of the GOATs","Kobe, LeBron, Tiger and more",Y+"ky7e_bFAEb0","YouTube · ESPN"],
+["Stuart Scott's Best","With LeBron, Kobe, Tiger, Calvin Johnson, Tony Hawk",Y+"eT-x_bI86NI","YouTube · ESPN"],
+["Best of Scott Van Pelt","Incl. Adrian Peterson & the “Bedwetter” nickname",Y+"nIhPRfJM7E0","YouTube · ESPN"],
+["Best of MLB Players & Mascots","David Ortiz, Tim Lincecum and more",Y+"3VQCotH6U0I","YouTube · ESPN"],
+["Best of NFL: 2010s Edition","Von Miller, Kenny Mayne and more",Y+"pqtvjqUPcU8","YouTube · ESPN"],
+["Best of Mascot Solo Acts","Red Sox, Bills, Oregon Duck, Reds and more",Y+"urxwCVSt1mo","YouTube · ESPN"],
+["Best of Soccer","Zlatan, Landon Donovan, Jozy Altidore and more",Y+"GxA3w6PSPUg","YouTube · ESPN"],
+["John Clayton","“Hey Ma, I finished my segment”",E+"33541868","ESPN.com"],
+["Spy","Alex Ovechkin",SH+"eCY_jw_VeZg","YouTube Short · ESPN"],
+["The Manning Brothers","Peyton & Eli",SH+"XXzlQ58IOLU","YouTube Short · ESPN"],
+["Rivalry","David Ortiz",SH+"BJKOvRj7Bnw","YouTube Short · ESPN"],
+["Elevator","Brandon Moreno",Y+"Ns989ayaS08","YouTube · ESPN"],
+["John Anderson's Top 5","Anchor's picks",Y+"7RF7j11Xib8","YouTube"],
+["Best of the '90s","Fan compilation",Y+"7l16EPmvOz0","YouTube"],
+["Vintage Commercials Tape","27-minute VHS rip of '90s spots",Y+"HqaubfDwifU","YouTube"]
 ];
 const hunt=[
 ["Y2K","Mark McGwire & Charley Steiner — “Follow me to freedom!”"],
+["Touchdown Celebrations","Chad Johnson & Stuart Scott"],
+["The Chair","LeBron James"],
+["Slump Buster","Jimmy Rollins & the Phillie Phanatic"],
+["Big Hands","Rajon Rondo"],
+["Birds","Stuart Scott & mascots"],
 ["Spy","Alex Ovechkin & Steve Levy"],
 ["Rivalry Headwear","David Ortiz & Jorge Posada"],
 ["Media Training","Kobe Bryant & Keyshawn Johnson"],
@@ -136,7 +141,7 @@ const hunt=[
 const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const card=(n,t,w,href,go)=>`<a class="spot" href="${href}" data-k="${esc((t+' '+w).toLowerCase())}"><div class="top"><span class="n">${n}</span><span class="ttl">${esc(t)}</span></div><div class="who">${esc(w)}</div><div class="go"><span>${go}</span><span>→</span></div></a>`;
 const S=document.getElementById('spots');
-S.innerHTML=spots.map((s,i)=>card(String(i+1).padStart(2,'0'),s[0],s[1],'https://www.youtube.com/watch?v='+s[2],'Watch on YouTube')).join('');
+S.innerHTML=spots.map((s,i)=>card(String(i+1).padStart(2,'0'),s[0],s[1],s[2],'Watch · '+s[3])).join('');
 document.getElementById('hunt').innerHTML=hunt.map((h,i)=>card('?',h[0],h[1],'https://www.youtube.com/results?search_query='+encodeURIComponent('"This is SportsCenter" '+h[0]+' '+h[1].split(/[—&]/)[0]),'Search YouTube')).join('');
 const q=document.getElementById('q'),none=document.getElementById('none');
 q.addEventListener('input',()=>{const v=q.value.trim().toLowerCase();let c=0;S.querySelectorAll('.spot').forEach(a=>{const m=!v||a.dataset.k.includes(v);a.style.display=m?'':'none';if(m)c++});none.style.display=c?'none':'block'});
